@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="מחלקים 120 מנדטים, מנחשים מי עובר את אחוז החסימה, ונראה מי הכי קרוב לתוצאות. ננעל ב-27.10 ב-07:00.">
+<meta property="og:title" content="🗳️ המדגם של החבר׳ה – בחירות 2026">
+<meta property="og:description" content="מחלקים 120 מנדטים ונראה מי הכי קרוב לתוצאות. ננעל ביום שלישי ב-07:00.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ff4f9a">
+<style>
+html{color-scheme:light}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* standalone: only the guess form; board and admin live on claude.ai */
+nav.tabs,#tab-board,#tab-admin{display:none!important}
+</style>
+</head>
+<body>
+<title>המדגם של החבר׳ה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Frank+Ruhl+Libre:wght@900&family=Rubik:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: one cheerful column, party-night energy: rounded cards, candy colors per bloc, ring countdown up top, a floating pill tally at the bottom. */
+:root{
+  --bg:#fdfcff; --card:#ffffff; --ink:#1f1b3a; --muted:#6b6789; --line:#ebe8f5; --soft:#f4f2fb;
+  --pink:#ff4f9a; --teal:#12b5a7; --yellow:#ffc531; --purple:#7b61ff; --orange:#ff8a3d;
+  --coal:#7b61ff; --opp:#12b5a7; --arab:#4fb83f; --other:#f2a516;
+  --good:#16a35a; --bad:#e8344e; --on-accent:#ffffff;
+  --display:"Fredoka","Rubik","Segoe UI",Arial,sans-serif;
+  --body:"Rubik","Segoe UI",Arial,sans-serif;
+  --r:18px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16132b; --card:#211d3d; --ink:#f5f3ff; --muted:#aaa5c9; --line:#332e57; --soft:#2a2550;
+  --pink:#ff6aab; --teal:#2fd3c4; --yellow:#ffd257; --purple:#9d8bff; --orange:#ff9d5c;
+  --coal:#9d8bff; --opp:#2fd3c4; --arab:#72d65f; --other:#ffc040;
+  --good:#4ade80; --bad:#ff6b80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16132b; --card:#211d3d; --ink:#f5f3ff; --muted:#aaa5c9; --line:#332e57; --soft:#2a2550;
+  --pink:#ff6aab; --teal:#2fd3c4; --yellow:#ffd257; --purple:#9d8bff; --orange:#ff9d5c;
+  --coal:#9d8bff; --opp:#2fd3c4; --arab:#72d65f; --other:#ffc040;
+  --good:#4ade80; --bad:#ff6b80; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;direction:rtl}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:20px 0}
+h1,h2,h3{font-family:var(--display);font-weight:700;text-wrap:balance;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:28px 22px 24px;margin-bottom:22px;
+  background:
+    radial-gradient(circle at 8% 18%,var(--yellow) 0 7px,transparent 8px),
+    radial-gradient(circle at 92% 12%,var(--pink) 0 6px,transparent 7px),
+    radial-gradient(circle at 84% 78%,var(--teal) 0 8px,transparent 9px),
+    radial-gradient(circle at 14% 88%,var(--purple) 0 5px,transparent 6px),
+    radial-gradient(circle at 55% 6%,var(--orange) 0 4px,transparent 5px),
+    var(--soft);
+  display:grid;gap:18px;text-align:center}
+.hero .kicker{display:inline-block;justify-self:center;background:var(--card);border-radius:999px;padding:4px 14px;font-weight:700;font-size:13px;color:var(--muted)}
+.hero h1{font-size:clamp(38px,9vw,62px);line-height:1.05}
+.hero h1 .hl{color:var(--pink)}
+.hero p{margin:0 auto;color:var(--muted);max-width:50ch}
+
+/* ring countdown */
+.cd{display:grid;gap:10px}
+.cd-label{font-weight:700;color:var(--ink)}
+.rings{display:flex;justify-content:center;gap:clamp(8px,3vw,22px);flex-wrap:wrap;direction:rtl}
+.ring{position:relative;width:clamp(68px,19vw,92px);aspect-ratio:1;max-width:100%}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .track{fill:none;stroke:var(--card);stroke-width:9}
+.ring .prog{fill:none;stroke:var(--c);stroke-width:9;stroke-linecap:round}
+.ring .val{position:absolute;inset:0;display:grid;place-content:center;text-align:center;line-height:1}
+.ring .val b{font-family:var(--display);font-size:clamp(22px,6vw,30px);font-weight:700;color:var(--ink)}
+.ring .val small{font-size:12px;font-weight:700;color:var(--muted);margin-top:3px}
+@media (prefers-reduced-motion:no-preference){.ring .prog{transition:stroke-dashoffset .6s cubic-bezier(.3,1.4,.5,1)}}
+.cd-done{font-family:var(--display);font-size:22px;font-weight:700;background:var(--card);border-radius:var(--r);padding:14px}
+
+nav.tabs{display:flex;gap:6px;background:var(--soft);border-radius:999px;padding:5px;margin-bottom:20px;overflow-x:auto}
+nav.tabs button{flex:1;background:none;border:0;padding:9px 14px;font-weight:700;color:var(--muted);cursor:pointer;border-radius:999px;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 2px 8px rgb(0 0 0 / .08)}
+
+section{display:grid;gap:14px;margin-bottom:30px}
+.sec-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.sec-h h2{font-size:26px}
+.hint{color:var(--muted);font-size:14px;margin:0}
+label.field{display:grid;gap:6px;font-weight:700}
+input[type=text],input[type=number],select,textarea{background:var(--card);border:2px solid var(--line);padding:11px 14px;border-radius:14px;width:100%}
+input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{border-color:var(--teal);outline:none}
+textarea{min-height:110px;direction:ltr;font-family:ui-monospace,Consolas,monospace;font-size:13px}
+
+/* party cards */
+.slips{display:grid;gap:10px}
+.slip{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:10px 12px}
+/* mini ballot slip: always white paper with black print, like the real thing */
+.bslip{width:54px;height:66px;background:#fff;color:#111;border:1px solid #d9d6e4;border-radius:3px;box-shadow:0 2px 6px rgb(30 20 70 / .14),3px 3px 0 color-mix(in srgb,var(--bc) 70%,transparent);display:grid;grid-template-rows:1fr auto;place-items:center;padding:5px 3px 4px;transform:rotate(-3deg);transition:transform .2s}
+.slip:nth-child(even) .bslip{transform:rotate(2.5deg)}
+.slip:hover .bslip{transform:rotate(0) scale(1.06)}
+.bslip b{font-family:"Frank Ruhl Libre","David","Times New Roman",serif;font-weight:900;font-size:24px;line-height:1;letter-spacing:.02em}
+.bslip small{font-size:7px;line-height:1.1;font-weight:700;text-align:center;color:#333;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bslip.blank b{color:#b8b4c8}
+@media (prefers-reduced-motion:reduce){.bslip,.slip:nth-child(even) .bslip,.slip:hover .bslip{transform:none;transition:none}}
+.slip .who{min-width:0}
+.slip .pname{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.2}
+.slip .meta{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:2px 10px;align-items:center}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:1px 9px;border-radius:999px;background:color-mix(in srgb,var(--bc) 18%,transparent);color:var(--ink)}
+.edge{background:var(--yellow);color:#3a2a00;border-radius:999px;padding:0 8px;font-size:11px;font-weight:800}
+.slip.out{opacity:.55}
+.slip.out .pname{text-decoration:line-through}
+.step{display:flex;align-items:center;gap:4px}
+.step button{width:36px;height:36px;border-radius:50%;border:0;background:var(--soft);font-size:20px;font-weight:700;cursor:pointer;line-height:1;color:var(--ink)}
+.step button[data-d="1"]{background:var(--bc);color:var(--on-accent)}
+.step button:active{transform:scale(.92)}
+.step input{width:46px;height:40px;border:0;background:none;text-align:center;font-family:var(--display);font-weight:700;font-size:22px;padding:0;-moz-appearance:textfield}
+.step input::-webkit-inner-spin-button{display:none}
+.slip.bad{border-color:var(--bad)}
+
+/* bonus */
+.qs{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.q{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:8px;align-content:start}
+.q:nth-child(1){border-top:6px solid var(--pink)} .q:nth-child(2){border-top:6px solid var(--teal)} .q:nth-child(3){border-top:6px solid var(--yellow)}
+.q .qt{font-weight:700}
+.pts{font-size:12px;color:var(--muted);font-weight:700}
+
+/* floating tally */
+.tally{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border:2px solid var(--line);border-radius:22px;box-shadow:0 10px 30px rgb(40 20 90 / .18);padding:12px 16px;display:grid;gap:8px;z-index:5;margin-bottom:10px}
+.tally-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.total{font-family:var(--display);font-size:26px;font-weight:700}
+.total.ok{color:var(--good)} .total.no{color:var(--bad)}
+.bar{position:relative;height:14px;display:flex;background:var(--soft);border-radius:999px;overflow:visible}
+.bar span{height:100%}
+.bar span:first-of-type{border-radius:0 999px 999px 0}
+.bar .m61{position:absolute;top:-5px;bottom:-5px;width:3px;border-radius:2px;background:var(--ink);right:calc(61/120*100%)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;font-weight:700}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--bc);margin-inline-end:5px}
+@media (max-width:520px){.tally{padding:8px 12px;gap:5px;border-radius:18px}.tally .total{font-size:21px}.tally .msg{font-size:12.5px}.legend{font-size:11.5px;gap:1px 10px}.legend>span:last-child{display:none}}
+.msg{font-size:14px;font-weight:700}
+.msg.no{color:var(--bad)} .msg.ok{color:var(--good)}
+
+.btn{background:var(--pink);color:var(--on-accent);border:0;padding:13px 24px;font-weight:700;cursor:pointer;font-size:17px;border-radius:999px;text-decoration:none;display:inline-block;box-shadow:0 6px 0 color-mix(in srgb,var(--pink) 55%,#000)}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 color-mix(in srgb,var(--pink) 55%,#000)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:var(--soft);color:var(--ink);box-shadow:none;font-size:14px;padding:9px 16px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+.panel{background:color-mix(in srgb,var(--teal) 14%,var(--card));border-radius:var(--r);padding:16px;display:grid;gap:10px}
+.panel code{direction:ltr;display:block;word-break:break-all;background:var(--card);color:var(--ink);padding:10px;font-size:12px;border-radius:10px}
+.panel .btn{background:#25a95a;box-shadow:0 6px 0 #17703b}
+
+/* board */
+.names{display:flex;flex-wrap:wrap;gap:8px}
+.names span{background:var(--soft);border-radius:999px;padding:5px 14px;font-weight:700}
+.tbl-wrap{overflow-x:auto;border:2px solid var(--line);border-radius:var(--r);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+th:first-child,td:first-child{text-align:right;position:sticky;right:0;background:var(--card)}
+thead th{font-size:12px;color:var(--muted)}
+tr.avg td{font-weight:800;background:color-mix(in srgb,var(--yellow) 25%,var(--card))}
+tr.real td{font-weight:800;background:color-mix(in srgb,var(--teal) 18%,var(--card))}
+.rank{display:grid;gap:8px}
+.rk{display:grid;grid-template-columns:46px 1fr auto;gap:12px;align-items:center;background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:10px 14px}
+.rk .pos{font-family:var(--display);font-size:22px;font-weight:700;text-align:center;width:40px;height:40px;border-radius:50%;display:grid;place-content:center;background:var(--soft)}
+.rk:nth-child(1) .pos{background:var(--yellow);color:#3a2a00}
+.rk:nth-child(2) .pos{background:var(--teal);color:#fff}
+.rk:nth-child(3) .pos{background:var(--pink);color:#fff}
+.rk .sc{font-family:var(--display);font-size:24px;font-weight:700}
+.rk .br{font-size:12px;color:var(--muted)}
+.rules{font-size:14px;color:var(--muted);margin:0;padding-inline-start:18px;display:grid;gap:3px}
+.empty{background:var(--soft);border-radius:var(--r);padding:22px;color:var(--muted);text-align:center;font-weight:500}
+.del{background:none;border:0;color:var(--bad);cursor:pointer;font-weight:700}
+footer{color:var(--muted);font-size:12px;padding-block:24px 30px;text-align:center}
+@media (prefers-reduced-motion:no-preference){.bar span{transition:width .3s ease}.slip{transition:opacity .2s}}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="kicker">הבחירות לכנסת ה-26 · יום ג׳, 27.10.2026</span>
+    <h1>המדגם של <span class="hl">החבר׳ה</span></h1>
+    <p>לפני שהערוצים חושפים את המדגם ב-22:00, אנחנו חושפים את שלנו. מחלקים 120 מנדטים, מנחשים מי עובר את אחוז החסימה, ועונים על שלוש שאלות בונוס. מי שיהיה הכי קרוב לתוצאות האמיתיות לוקח את התהילה.</p>
+    <div class="cd" id="countdown"></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="guess" aria-selected="true">הניחוש שלי</button>
+    <button role="tab" data-tab="board" aria-selected="false">טבלת הניחושים</button>
+    <button role="tab" data-tab="admin" aria-selected="false" hidden id="adminTabBtn">ניהול</button>
+  </nav>
+
+  <!-- GUESS -->
+  <div id="tab-guess">
+    <section>
+      <label class="field" for="nm">איך קוראים לך?
+        <input type="text" id="nm" maxlength="30" placeholder="השם שיופיע בטבלה" autocomplete="nickname">
+      </label>
+    </section>
+
+    <section>
+      <div class="sec-h"><h2>חלוקת המנדטים</h2><button class="btn ghost" id="resetPoll" type="button">חזרה לממוצע הסקרים</button></div>
+      <p class="hint">המספרים מתחילים מממוצע הסקרים (סרוגים, 20.10). כל רשימה מקבלת 0 (לא עוברת את אחוז החסימה) או 4 מנדטים ומעלה, ובסך הכול צריך להגיע ל-120 בדיוק.</p>
+      <div class="slips" id="slips"></div>
+    </section>
+
+    <section>
+      <div class="sec-h"><h2>שאלות בונוס</h2></div>
+      <div class="qs">
+        <div class="q">
+          <span class="qt">למי יטיל הנשיא את הרכבת הממשלה?</span>
+          <select id="qpm">
+            <option value="">בחרו…</option>
+            <option value="netanyahu">בנימין נתניהו</option>
+            <option value="eisenkot">גדי איזנקוט</option>
+            <option value="bennett">נפתלי בנט</option>
+            <option value="other">מישהו אחר</option>
+          </select>
+          <span class="pts">10 נק׳</span>
+        </div>
+        <div class="q">
+          <span class="qt">איזו רשימה תהיה הגדולה ביותר?</span>
+          <select id="qlg"><option value="">בחרו…</option></select>
+          <span class="pts">8 נק׳</span>
+        </div>
+        <div class="q">
+          <span class="qt">מה יהיה אחוז ההצבעה?</span>
+          <input type="number" id="qto" min="50" max="90" step="0.1" placeholder="בבחירות 2022: 70.6">
+          <span class="pts">עד 10 נק׳ (מורידים 2 על כל אחוז סטייה)</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="submitArea">
+      <div class="row">
+        <button class="btn" id="submitBtn" type="button">שליחת הניחוש</button>
+        <span class="msg" id="submitMsg"></span>
+      </div>
+      <div class="panel" id="codePanel" hidden>
+        <strong>שלחו את הניחוש למארגן בוואטסאפ</strong>
+        <span>הקוד שומר את כל הניחוש שלכם. שלחו אותו כמו שהוא, והמארגן יכניס אותו לטבלה.</span>
+        <code id="codeBox"></code>
+        <div class="row">
+          <a class="btn" id="waLink" href="#" target="_blank" rel="noopener">פתיחה בוואטסאפ</a>
+          <button class="btn ghost" id="copyBtn" type="button">העתקת ההודעה</button>
+          <span class="msg" id="copyMsg"></span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-h"><h2>איך סופרים נקודות</h2></div>
+      <ul class="rules">
+        <li>על כל רשימה: 5 נקודות פחות ההפרש במנדטים (לא פחות מ-0).</li>
+        <li>על כל רשימה גבולית (עמך ישראל, המילואימניקים, רע״ם, הציונות הדתית): 4 נקודות אם צדקתם אם היא עוברת או לא.</li>
+        <li>גוש הקואליציה (ליכוד, ש״ס, יהדות התורה, עוצמה יהודית, הציונות הדתית): 15 נקודות פחות 2 על כל מנדט הפרש.</li>
+        <li>שאלות הבונוס: עד 28 נקודות.</li>
+        <li>בשוויון, מי ששלח קודם מנצח.</li>
+      </ul>
+    </section>
+
+    <div class="tally" id="tally">
+      <div class="tally-top">
+        <span class="total num" id="total">120 / 120</span>
+        <span class="msg" id="tallyMsg"></span>
+      </div>
+      <div class="bar" id="bar" aria-hidden="true"><div class="m61"></div></div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+
+  <!-- BOARD -->
+  <div id="tab-board" hidden>
+    <section id="boardBody"></section>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="tab-admin" hidden>
+    <section>
+      <div class="sec-h"><h2>הכנסת קודים מוואטסאפ</h2></div>
+      <p class="hint">הדביקו כאן הודעה אחת או כמה הודעות. הדף מוצא בהן כל קוד שמתחיל ב-BH1. מי ששלח פעמיים, הניחוש האחרון שלו נשמר.</p>
+      <textarea id="codesIn" placeholder="BH1.…"></textarea>
+      <div class="row"><button class="btn" id="importBtn" type="button">הוספה לטבלה</button><span class="msg" id="importMsg"></span></div>
+      <div id="extList"></div>
+    </section>
+    <section>
+      <div class="sec-h"><h2>התוצאות בפועל</h2></div>
+      <p class="hint">ממלאים אחרי פרסום התוצאות. אפשר לשמור תוצאות חלקיות (למשל לפי המדגם) ולעדכן בהמשך. הניקוד מחושב מחדש בכל שמירה.</p>
+      <div class="slips" id="resSlips"></div>
+      <div class="qs">
+        <div class="q"><span class="qt">מי קיבל את המנדט להרכבה</span><select id="rpm"><option value="">עוד לא ידוע</option><option value="netanyahu">בנימין נתניהו</option><option value="eisenkot">גדי איזנקוט</option><option value="bennett">נפתלי בנט</option><option value="other">מישהו אחר</option></select></div>
+        <div class="q"><span class="qt">אחוז ההצבעה</span><input type="number" id="rto" step="0.1" min="40" max="95"></div>
+      </div>
+      <div class="row"><button class="btn" id="saveRes" type="button">שמירת התוצאות</button><span class="msg" id="resMsg"></span></div>
+    </section>
+  </div>
+
+  <footer>ממוצע הסקרים לפי סרוגים, 20.10.2026. זה משחק בין חברים, לא סקר.</footer>
+</div>
+
+<script>
+const PARTIES=[
+ {id:"likud",n:"הליכוד",ltr:"מחל",l:"בנימין נתניהו",b:"coal",p:22},
+ {id:"yashar",n:"ישר!",ltr:"דרך",l:"גדי איזנקוט",b:"opp",p:21},
+ {id:"beyachad",n:"ביחד",ltr:"רק",l:"נפתלי בנט",b:"opp",p:12},
+ {id:"shas",n:"ש״ס",ltr:"שס",l:"אריה דרעי",b:"coal",p:8},
+ {id:"otzma",n:"עוצמה יהודית",ltr:"ב",l:"איתמר בן גביר",b:"coal",p:8},
+ {id:"dems",n:"הדמוקרטים",ltr:"אמת",l:"יאיר גולן",b:"opp",p:8},
+ {id:"joint",n:"הרשימה המשותפת",ltr:"ודם",l:"חד״ש-תע״ל-בל״ד",b:"arab",p:8},
+ {id:"yb",n:"ישראל ביתנו",ltr:"ל",l:"אביגדור ליברמן",b:"opp",p:7},
+ {id:"utj",n:"יהדות התורה",ltr:"ג",l:"",b:"coal",p:7},
+ {id:"rzp",n:"הציונות הדתית-זהות",ltr:"ט",l:"בצלאל סמוטריץ׳",b:"coal",p:6,edge:1},
+ {id:"raam",n:"רע״ם",ltr:"עם",l:"מנסור עבאס",b:"arab",p:5,edge:1},
+ {id:"amcha",n:"עמך ישראל",ltr:"ך",l:"עופר וינטר",b:"other",p:4,edge:1},
+ {id:"reserv",n:"המילואימניקים והכלכלית",ltr:"די",l:"יועז הנדל וירון זליכה",b:"other",p:4,edge:1},
+ {id:"others",n:"כל השאר",ltr:"",l:"עוד 25 רשימות קטנות",b:"other",p:0},
+];
+const BLOCS={coal:"גוש הקואליציה",opp:"האופוזיציה",arab:"המפלגות הערביות",other:"מחוץ לגושים"};
+const PM={netanyahu:"נתניהו",eisenkot:"איזנקוט",bennett:"בנט",other:"אחר"};
+const ORG_PHONE=""; // international format without + or leading 0, e.g. 972501234567; empty = the friend picks a chat
+const LOCK=Date.parse("2026-10-27T07:00:00+02:00");
+const CLOSE=Date.parse("2026-10-27T22:00:00+02:00");
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const locked=()=>Date.now()>=LOCK;
+const sum=a=>a.reduce((x,y)=>x+(+y||0),0);
+const blocOf=s=>{const o={coal:0,opp:0,arab:0,other:0};PARTIES.forEach((p,i)=>o[p.b]+=+s[i]||0);return o};
+
+let seats=PARTIES.map(p=>p.p);
+let db=null,user=null,uid=null,isOwner=false,canWrite=null;
+let guesses=[],external=[],results=null;
+
+/* ---------- countdown ---------- */
+const RINGS=[{k:"d",l:"ימים",max:7,c:"var(--pink)"},{k:"h",l:"שעות",max:24,c:"var(--teal)"},{k:"m",l:"דקות",max:60,c:"var(--yellow)"},{k:"s",l:"שניות",max:60,c:"var(--purple)"}];
+const CIRC=2*Math.PI*40;
+let cdTarget=null;
+function buildRings(label,target){
+  cdTarget=target;
+  $("#countdown").innerHTML=`<span class="cd-label">${label}</span><div class="rings">`+RINGS.map(r=>`<div class="ring" style="--c:${r.c}"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="40"/><circle class="prog" id="rp-${r.k}" cx="50" cy="50" r="40" stroke-dasharray="${CIRC}" stroke-dashoffset="${CIRC}"/></svg><div class="val"><b class="num" id="rv-${r.k}">0</b><small>${r.l}</small></div></div>`).join("")+`</div>`;
+}
+let cdMode="";
+function tick(){
+  const now=Date.now();
+  const mode=now<LOCK?"pre":now<CLOSE?"open":"closed";
+  if(mode!==cdMode){cdMode=mode;
+    if(mode==="pre")buildRings("עד שהקלפיות נפתחות והניחושים ננעלים",LOCK);
+    else if(mode==="open")buildRings("הקלפיות פתוחות, הניחושים נעולים. עד המדגמים נשארו",CLOSE);
+    else{cdTarget=null}}
+  if(mode==="closed"){$("#countdown").innerHTML=`<div class="cd-done">${results?"התוצאות בטבלה. מי ניצח? 🏆":"הקלפיות נסגרו. עכשיו מחכים לתוצאות…"}</div>`;return}
+  const ms=Math.max(0,cdTarget-now),v={d:Math.floor(ms/864e5),h:Math.floor(ms/36e5)%24,m:Math.floor(ms/6e4)%60,s:Math.floor(ms/1e3)%60};
+  RINGS.forEach(r=>{$("#rv-"+r.k).textContent=String(v[r.k]).padStart(2,"0");$("#rp-"+r.k).setAttribute("stroke-dashoffset",CIRC*(1-Math.min(1,v[r.k]/r.max)))});
+}
+tick();setInterval(tick,1000);
+
+/* ---------- tabs ---------- */
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+function showTab(t){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
+  ["guess","board","admin"].forEach(x=>$("#tab-"+x).hidden=x!==t);
+  if(t==="board")renderBoard();
+}
+
+/* ---------- guess form ---------- */
+const lg=$("#qlg");PARTIES.slice(0,-1).forEach(p=>lg.insertAdjacentHTML("beforeend",`<option value="${p.id}">${esc(p.n)}</option>`));
+
+function slipHTML(p,i,prefix,val){
+  return `<div class="slip" style="--bc:var(--${p.b})" id="${prefix}row${i}">
+    <span class="bslip${p.ltr?"":" blank"}" aria-hidden="true"><b>${p.ltr?esc(p.ltr):"?"}</b><small>${esc(p.n)}</small></span>
+    <div class="who"><div class="pname">${esc(p.n)}</div>
+      <div class="meta">${p.l?`<span>${esc(p.l)}</span>`:""}<span class="chip">${BLOCS[p.b]}</span>${prefix==="g"&&p.id!=="others"?`<span class="num">בסקרים: ${p.p}</span>`:""}${p.edge&&prefix==="g"?`<span class="edge">על הגבול</span>`:""}</div></div>
+    <div class="step"><button type="button" data-d="1" data-i="${i}" aria-label="הוספת מנדט ל${esc(p.n)}">+</button><input class="num" type="number" inputmode="numeric" id="${prefix}s${i}" data-i="${i}" min="0" max="120" value="${val}" aria-label="מנדטים ל${esc(p.n)}"><button type="button" data-d="-1" data-i="${i}" aria-label="הורדת מנדט מ${esc(p.n)}">−</button></div>
+  </div>`;
+}
+function bindSteps(container,arr,onChange){
+  container.addEventListener("click",e=>{
+    const b=e.target.closest("button[data-d]");if(!b)return;
+    const i=+b.dataset.i,d=+b.dataset.d;let v=+arr[i]||0;
+    if(d>0)v=v<4?4:v+1; else v=v<=4?0:v-1;
+    arr[i]=Math.min(120,v);container.querySelector(`input[data-i="${i}"]`).value=arr[i];onChange();
+  });
+  container.addEventListener("input",e=>{const i=e.target.dataset.i;if(i==null)return;arr[+i]=Math.max(0,Math.min(120,parseInt(e.target.value)||0));onChange()});
+}
+$("#slips").innerHTML=PARTIES.map((p,i)=>slipHTML(p,i,"g",seats[i])).join("");
+bindSteps($("#slips"),seats,()=>{renderTally();saveDraft()});
+function setSeats(a){a.forEach((v,i)=>{seats[i]=v;$("#gs"+i).value=v});renderTally()}
+$("#resetPoll").addEventListener("click",()=>{setSeats(PARTIES.map(p=>p.p));saveDraft()});
+
+function validate(s){
+  const bad=s.map((v,i)=>v>0&&v<4?i:-1).filter(i=>i>=0);
+  const t=sum(s);
+  if(bad.length)return {ok:false,bad,msg:"רשימה לא יכולה לקבל 1–3 מנדטים: 0 או 4 ומעלה."};
+  if(t!==120)return {ok:false,bad,msg:t<120?`חסרים ${120-t} מנדטים`:`יש ${t-120} מנדטים מיותרים`};
+  return {ok:true,bad,msg:""};
+}
+function renderTally(){
+  const t=sum(seats),v=validate(seats),bl=blocOf(seats);
+  $("#total").textContent=t+" / 120";$("#total").className="total num "+(t===120?"ok":"no");
+  PARTIES.forEach((p,i)=>{const r=$("#grow"+i);r.classList.toggle("out",!seats[i]);r.classList.toggle("bad",v.bad.includes(i))});
+  const m=$("#tallyMsg");
+  if(!v.ok){m.textContent=v.msg;m.className="msg no"}
+  else{m.textContent=bl.coal>=61?`לפי הניחוש שלך לגוש נתניהו יש ${bl.coal}, כלומר רוב`:`לפי הניחוש שלך לגוש נתניהו יש ${bl.coal}, בלי רוב`;m.className="msg ok"}
+  const bar=$("#bar");bar.querySelectorAll("span").forEach(s=>s.remove());
+  ["coal","other","arab","opp"].forEach(k=>{const s=document.createElement("span");s.style.width=(bl[k]/120*100)+"%";s.style.background=`var(--${k})`;bar.insertBefore(s,bar.querySelector(".m61"))});
+  $("#legend").innerHTML=["coal","opp","arab","other"].map(k=>`<span style="--bc:var(--${k})"><i></i>${BLOCS[k]} <span class="num">${bl[k]}</span></span>`).join("")+`<span>קו הרוב: 61</span>`;
+}
+renderTally();
+
+function currentGuess(){
+  return {n:$("#nm").value.trim(),s:seats.slice(),pm:$("#qpm").value,lg:$("#qlg").value,to:$("#qto").value?Math.round(parseFloat($("#qto").value)*10)/10:null,t:Date.now()};
+}
+function fillGuess(g){if(!g)return;if(g.n)$("#nm").value=g.n;if(Array.isArray(g.s)&&g.s.length===PARTIES.length)setSeats(g.s);$("#qpm").value=g.pm||"";$("#qlg").value=g.lg||"";$("#qto").value=g.to??""}
+function saveDraft(){try{localStorage.setItem("bh-draft",JSON.stringify(currentGuess()))}catch(e){}}
+["#nm","#qpm","#qlg","#qto"].forEach(s=>$(s).addEventListener("input",saveDraft));
+try{const d=JSON.parse(localStorage.getItem("bh-draft")||"null");if(d)fillGuess(d)}catch(e){}
+
+/* ---------- code encoding (for friends outside the shared table) ---------- */
+const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/"))));
+const encode=g=>"BH1."+b64e(JSON.stringify(g));
+function decode(c){try{const g=JSON.parse(b64d(c.slice(4)));if(typeof g.n!=="string"||!Array.isArray(g.s)||g.s.length!==PARTIES.length)return null;g.n=g.n.slice(0,30);g.s=g.s.map(x=>Math.max(0,Math.min(120,parseInt(x)||0)));return g}catch(e){return null}}
+function waText(g){
+  const lines=PARTIES.map((p,i)=>g.s[i]?`${p.n} ${g.s[i]}`:null).filter(Boolean).join(" · ");
+  const bl=blocOf(g.s);
+  return `🗳️ המדגם של החבר׳ה – הניחוש של ${g.n}\n${lines}\nגוש הקואליציה: ${bl.coal}\nקוד למארגן: ${encode(g)}`;
+}
+
+$("#submitBtn").addEventListener("click",async()=>{
+  const m=$("#submitMsg"),g=currentGuess(),v=validate(g.s);
+  if(locked()){m.textContent="הקלפיות כבר נפתחו והניחושים נעולים.";m.className="msg no";return}
+  if(g.n.length<2){m.textContent="כתבו שם (לפחות 2 תווים).";m.className="msg no";$("#nm").focus();return}
+  if(!v.ok){m.textContent=v.msg;m.className="msg no";return}
+  if(db&&uid&&canWrite!==false){
+    m.textContent="שומר…";m.className="msg";
+    try{await db.doc("guesses/"+uid).set(g);m.textContent="הניחוש נשמר. אפשר לעדכן אותו עד 07:00 ביום הבחירות.";m.className="msg ok";$("#codePanel").hidden=true;return}
+    catch(e){canWrite=false}
+  }
+  const txt=waText(g);$("#codeBox").textContent=encode(g);
+  $("#waLink").href="https://wa.me/"+ORG_PHONE+"?text="+encodeURIComponent(txt);
+  $("#codePanel").hidden=false;m.textContent="הניחוש מוכן. נשאר רק לשלוח אותו למארגן.";m.className="msg ok";
+});
+$("#copyBtn").addEventListener("click",async()=>{
+  const txt=waText(currentGuess()),m=$("#copyMsg");
+  try{await navigator.clipboard.writeText(txt);m.textContent="ההודעה הועתקה"}catch(e){const r=document.createRange();r.selectNodeContents($("#codeBox"));const s=getSelection();s.removeAllRanges();s.addRange(r);m.textContent="סמנו והעתיקו את הקוד ידנית"}
+});
+
+/* ---------- scoring ---------- */
+function score(g,R){
+  if(!R||!Array.isArray(R.s)||sum(R.s)===0)return null;
+  let party=0,thr=0,bloc=0,bonus=0;
+  PARTIES.forEach((p,i)=>{party+=Math.max(0,5-Math.abs((+g.s[i]||0)-R.s[i]));if(p.edge&&((+g.s[i]>0)===(R.s[i]>0)))thr+=4});
+  bloc=Math.max(0,15-2*Math.abs(blocOf(g.s).coal-blocOf(R.s).coal));
+  if(R.pm&&g.pm===R.pm)bonus+=10;
+  const mx=Math.max(...R.s),big=PARTIES.filter((p,i)=>R.s[i]===mx).map(p=>p.id);
+  if(g.lg&&big.includes(g.lg))bonus+=8;
+  if(R.to!=null&&g.to!=null)bonus+=Math.max(0,Math.round((10-2*Math.abs(g.to-R.to))*2)/2);
+  return {total:party+thr+bloc+bonus,party,thr,bloc,bonus};
+}
+
+/* ---------- board ---------- */
+function allEntries(){
+  return [...guesses.map(d=>({...d,src:"db"})),...external.map(d=>({...d,src:"ext"}))].filter(e=>e&&e.n&&Array.isArray(e.s));
+}
+function renderBoard(){
+  const el=$("#boardBody"),E=allEntries();
+  if(!db){el.innerHTML=`<div class="sec-h"><h2>טבלת הניחושים</h2></div><div class="empty">הטבלה המשותפת מוצגת רק לחברי הארגון של המארגן. אם שלחתם קוד בוואטסאפ, הניחוש שלכם אצל המארגן, והוא יפרסם את טבלת המנצחים בקבוצה אחרי התוצאות.</div>`;return}
+  if(!E.length){el.innerHTML=`<div class="sec-h"><h2>טבלת הניחושים</h2></div><div class="empty">עוד אף אחד לא שלח ניחוש. מי שיישלח ראשון, השם שלו יופיע כאן.</div>`;return}
+  const hasRes=results&&Array.isArray(results.s)&&sum(results.s)>0;
+  if(!locked()&&!isOwner){
+    el.innerHTML=`<div class="sec-h"><h2>${E.length} ניחושים עד עכשיו</h2></div><p class="hint">הניחושים עצמם ייחשפו כשהקלפיות ייפתחו, כדי שאף אחד לא יעתיק.</p><div class="names">${E.sort((a,b)=>a.t-b.t).map(e=>`<span>${esc(e.n)}</span>`).join("")}</div>`;return;
+  }
+  let html="";
+  if(hasRes){
+    const ranked=E.map(e=>({e,sc:score(e,results)})).sort((a,b)=>b.sc.total-a.sc.total||a.e.t-b.e.t);
+    html+=`<div class="sec-h"><h2>טבלת המנצחים</h2><span class="hint">${results.partial?"לפי תוצאות חלקיות":"לפי התוצאות"}</span></div><div class="rank">`+
+      ranked.map((r,k)=>`<div class="rk ${k<3?"top":""}"><span class="pos num">${k+1}</span><div><strong>${esc(r.e.n)}</strong><div class="br num">מנדטים ${r.sc.party} · חסימה ${r.sc.thr} · גוש ${r.sc.bloc} · בונוס ${r.sc.bonus}</div></div><span class="sc num">${r.sc.total}</span></div>`).join("")+`</div>`;
+  } else if(!locked()) {
+    html+=`<p class="hint">רק המארגן רואה את הניחושים לפני 07:00 ביום הבחירות.</p>`;
+  }
+  const avg=PARTIES.map((p,i)=>Math.round(sum(E.map(e=>e.s[i]))/E.length*10)/10);
+  const head=`<tr><th>שם</th>${PARTIES.map(p=>`<th>${esc(p.n)}</th>`).join("")}<th>קואליציה</th><th>מרכיב</th><th>גדולה</th><th>הצבעה</th></tr>`;
+  const row=(n,s,o={},cls="")=>`<tr class="${cls}"><td>${esc(n)}</td>${s.map(v=>`<td>${v}</td>`).join("")}<td>${o.coal??blocOf(s).coal}</td><td>${o.pm?PM[o.pm]||"":""}</td><td>${o.lg?esc((PARTIES.find(p=>p.id===o.lg)||{}).n||""):""}</td><td>${o.to??""}</td></tr>`;
+  const avgCoal=Math.round(sum(E.map(e=>blocOf(e.s).coal))/E.length*10)/10;
+  html+=`<div class="sec-h"><h2>כל הניחושים</h2><span class="hint num">${E.length} משתתפים</span></div><div class="tbl-wrap"><table><thead>${head}</thead><tbody>`+
+    (hasRes?row("התוצאות",results.s,{pm:results.pm,to:results.to},"real"):"")+
+    row("ממוצע החבר׳ה",avg,{coal:avgCoal},"avg")+
+    E.sort((a,b)=>a.n.localeCompare(b.n,"he")).map(e=>row(e.n+(e.src==="ext"?" ✉︎":""),e.s,e)).join("")+
+    `</tbody></table></div><p class="hint">✉︎ = ניחוש שהגיע בוואטסאפ.</p>`;
+  el.innerHTML=html;
+}
+
+/* ---------- admin ---------- */
+let resSeats=PARTIES.map(()=>0);
+$("#resSlips").innerHTML=PARTIES.map((p,i)=>slipHTML(p,i,"r",0)).join("");
+bindSteps($("#resSlips"),resSeats,()=>{});
+function hashId(s){let h=5381;for(const c of s.trim().toLowerCase())h=((h<<5)+h+c.codePointAt(0))>>>0;return "x"+h.toString(36)}
+$("#importBtn").addEventListener("click",async()=>{
+  const m=$("#importMsg"),codes=($("#codesIn").value.match(/BH1\.[A-Za-z0-9_-]+/g)||[]);
+  if(!codes.length){m.textContent="לא נמצא קוד בטקסט שהודבק.";m.className="msg no";return}
+  let ok=0,bad=0,late=0;
+  for(const c of codes){const g=decode(c);if(!g){bad++;continue}if(g.t>=LOCK)late++;
+    try{await db.doc("external/"+hashId(g.n)).set({...g,code:c});ok++}catch(e){bad++}}
+  m.textContent=`נוספו ${ok}`+(bad?`, ${bad} קודים פגומים`:"")+(late?` (${late} נשלחו אחרי פתיחת הקלפיות)`:"");m.className="msg "+(ok?"ok":"no");
+  if(ok)$("#codesIn").value="";
+});
+function renderExt(){
+  const el=$("#extList");
+  if(!external.length){el.innerHTML=`<p class="hint">עדיין לא הוכנסו קודים.</p>`;return}
+  el.innerHTML=`<p class="hint num">${external.length} ניחושים מוואטסאפ:</p><div class="names">`+external.map(e=>`<span>${esc(e.n)}${e.t>=LOCK?" (באיחור)":""} <button class="del" type="button" data-x="${esc(e._id)}" aria-label="מחיקת ${esc(e.n)}">✕</button></span>`).join("")+`</div>`;
+}
+$("#extList").addEventListener("click",async e=>{const b=e.target.closest("button[data-x]");if(!b)return;try{await db.doc("external/"+b.dataset.x).delete()}catch(err){}});
+$("#saveRes").addEventListener("click",async()=>{
+  const m=$("#resMsg"),t=sum(resSeats);
+  const R={s:resSeats.slice(),pm:$("#rpm").value||null,to:$("#rto").value?parseFloat($("#rto").value):null,partial:t!==120,t:Date.now()};
+  try{await db.doc("admin/results").set(R);m.textContent=t===120?"התוצאות נשמרו":`נשמר כתוצאות חלקיות (${t} מנדטים)`;m.className="msg ok"}catch(e){m.textContent="השמירה נכשלה, נסו שוב.";m.className="msg no"}
+});
+function fillResults(){if(!results)return;if(Array.isArray(results.s))results.s.forEach((v,i)=>{resSeats[i]=v;$("#rs"+i).value=v});$("#rpm").value=results.pm||"";$("#rto").value=results.to??""}
+
+/* ---------- capabilities ---------- */
+(async()=>{
+  if(!window.claude?.use)return;
+  [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
+  if(user){isOwner=!!(await user.isOwner());uid=await user.id();try{canWrite=await user.can("data.write")}catch(e){}}
+  if(isOwner)$("#adminTabBtn").hidden=false;
+  if(!db)return;
+  if(uid){try{const d=await db.doc("guesses/"+uid).get();if(d.exists){fillGuess(d.data());$("#submitMsg").textContent="זה הניחוש ששמרת. אפשר לשנות ולשלוח שוב עד 07:00 ביום הבחירות.";$("#submitMsg").className="msg ok"}}catch(e){}}
+  db.collection("guesses").onSnapshot(s=>{guesses=s.docs.map(d=>d.data());if(!$("#tab-board").hidden)renderBoard()},()=>{});
+  db.collection("external").onSnapshot(s=>{external=s.docs.map(d=>({...d.data(),_id:d.id}));renderExt();if(!$("#tab-board").hidden)renderBoard()},()=>{});
+  db.doc("admin/results").onSnapshot(s=>{results=s.exists?s.data():null;if(isOwner)fillResults();tick();if(!$("#tab-board").hidden)renderBoard()},()=>{});
+})();
+</script>
+</body>
+</html>
