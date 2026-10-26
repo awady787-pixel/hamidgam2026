@@ -14,14 +14,14 @@ html{color-scheme:light}
 body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
-/* standalone: only the guess form; board and admin live on claude.ai */
-nav.tabs,#tab-board,#tab-admin{display:none!important}
+/* standalone: no admin here (it lives on claude.ai); the tabs show only when guesses are stored online */
+nav.tabs:not(.remote),#tab-admin,#adminTabBtn{display:none!important}
 </style>
 </head>
 <body>
 <title>המדגם של החבר׳ה</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Frank+Ruhl+Libre:wght@900&family=Rubik:wght@400;500;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Frank+Ruhl+Libre:wght@900&family=Baloo+Bhaijaan+2:wght@500;600;700&family=Cairo:wght@400;600;700&family=Rubik:wght@400;500;700;800&display=swap">
 <style>
 /* Layout: one cheerful column, party-night energy: rounded cards, candy colors per bloc, ring countdown up top, a floating pill tally at the bottom. */
 :root{
@@ -31,6 +31,8 @@ nav.tabs,#tab-board,#tab-admin{display:none!important}
   --good:#16a35a; --bad:#e8344e; --on-accent:#ffffff;
   --display:"Fredoka","Rubik","Segoe UI",Arial,sans-serif;
   --body:"Rubik","Segoe UI",Arial,sans-serif;
+  --ar-display:"Baloo Bhaijaan 2","Cairo",Tahoma,sans-serif;
+  --ar-body:"Cairo","Segoe UI",Tahoma,sans-serif;
   --r:18px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -69,8 +71,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* ring countdown */
 .cd{display:grid;gap:10px}
 .cd-label{font-weight:700;color:var(--ink)}
-.rings{display:flex;justify-content:center;gap:clamp(8px,3vw,22px);flex-wrap:wrap;direction:rtl}
-.ring{position:relative;width:clamp(68px,19vw,92px);aspect-ratio:1;max-width:100%}
+.rings{display:flex;justify-content:center;gap:clamp(5px,2.2vw,22px);flex-wrap:nowrap;direction:rtl}
+.ring{position:relative;width:clamp(58px,16.5vw,92px);aspect-ratio:1;max-width:100%}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring .track{fill:none;stroke:var(--card);stroke-width:9}
 .ring .prog{fill:none;stroke:var(--c);stroke-width:9;stroke-linecap:round}
@@ -137,6 +139,24 @@ textarea{min-height:110px;direction:ltr;font-family:ui-monospace,Consolas,monosp
 .bar .m61{position:absolute;top:-5px;bottom:-5px;width:3px;border-radius:2px;background:var(--ink);right:calc(61/120*100%)}
 .legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;font-weight:700}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--bc);margin-inline-end:5px}
+/* bilingual: Hebrew first, Arabic right under it (block), or after a dot (inline contexts) */
+.ar{display:block;font-family:var(--ar-body);font-size:.86em;font-weight:600;color:var(--muted);line-height:1.45}
+h1 .ar,h2 .ar{font-family:var(--ar-display);font-weight:600}
+.hero h1 .ar{font-size:.5em;color:var(--teal);margin-top:4px}
+.hero p .ar{font-weight:400;margin-top:6px}
+.sec-h h2 .ar{font-size:.68em;color:var(--teal)}
+.pname .ar{font-family:var(--ar-display);font-size:.82em;color:var(--muted);font-weight:600}
+.inl .ar,.chip .ar,.edge .ar,.btn .ar,.names .ar,.legend .ar,.kicker .ar,.meta .ar{display:inline;font-size:1em;color:inherit;font-weight:inherit}
+.inl .ar::before,.chip .ar::before,.edge .ar::before,.btn .ar::before,.legend .ar::before,.kicker .ar::before,.meta .ar::before{content:" · "}
+nav.tabs button{line-height:1.25}
+nav.tabs .ar{font-size:12px;color:inherit;font-weight:600}
+.slip .meta{font-size:12px;gap:2px 8px}
+.msg .ar{color:inherit;font-weight:600}
+.ring .val small .ar{font-size:10px;margin-top:1px;color:var(--muted)}
+.rules li .ar{font-weight:400}
+th .ar{font-weight:600}
+.bslip small.sa{font-family:var(--ar-body);font-size:7px}
+.bslip{height:72px}
 @media (max-width:520px){.tally{padding:8px 12px;gap:5px;border-radius:18px}.tally .total{font-size:21px}.tally .msg{font-size:12.5px}.legend{font-size:11.5px;gap:1px 10px}.legend>span:last-child{display:none}}
 .msg{font-size:14px;font-weight:700}
 .msg.no{color:var(--bad)} .msg.ok{color:var(--good)}
@@ -178,84 +198,84 @@ footer{color:var(--muted);font-size:12px;padding-block:24px 30px;text-align:cent
 
 <div class="wrap">
   <header class="hero">
-    <span class="kicker">הבחירות לכנסת ה-26 · יום ג׳, 27.10.2026</span>
-    <h1>המדגם של <span class="hl">החבר׳ה</span></h1>
-    <p>לפני שהערוצים חושפים את המדגם ב-22:00, אנחנו חושפים את שלנו. מחלקים 120 מנדטים, מנחשים מי עובר את אחוז החסימה, ועונים על שלוש שאלות בונוס. מי שיהיה הכי קרוב לתוצאות האמיתיות לוקח את התהילה.</p>
+    <span class="kicker">הבחירות לכנסת ה-26 · יום ג׳, 27.10.2026<span class="ar" lang="ar">انتخابات الكنيست الـ26</span></span>
+    <h1>המדגם של <span class="hl">החבר׳ה</span><span class="ar" lang="ar">استطلاع الشلّة</span></h1>
+    <p>לפני שהערוצים חושפים את המדגם ב-22:00, אנחנו חושפים את שלנו. מחלקים 120 מנדטים, מנחשים מי עובר את אחוז החסימה, ועונים על שלוש שאלות בונוס. מי שיהיה הכי קרוב לתוצאות האמיתיות לוקח את התהילה.<span class="ar" lang="ar">قبل أن تكشف القنوات عن العيّنة الساعة 22:00، نكشف نحن عن عيّنتنا. وزّعوا 120 مقعدًا، خمّنوا من سيتجاوز نسبة الحسم، وأجيبوا عن ثلاثة أسئلة إضافية. الأقرب إلى النتائج الحقيقية يفوز بالمجد.</span></p>
     <div class="cd" id="countdown"></div>
   </header>
 
   <nav class="tabs" role="tablist">
-    <button role="tab" data-tab="guess" aria-selected="true">הניחוש שלי</button>
-    <button role="tab" data-tab="board" aria-selected="false">טבלת הניחושים</button>
+    <button role="tab" data-tab="guess" aria-selected="true">הניחוש שלי<span class="ar" lang="ar">تخميني</span></button>
+    <button role="tab" data-tab="board" aria-selected="false">טבלת הניחושים<span class="ar" lang="ar">الجدول</span></button>
     <button role="tab" data-tab="admin" aria-selected="false" hidden id="adminTabBtn">ניהול</button>
   </nav>
 
   <!-- GUESS -->
   <div id="tab-guess">
     <section>
-      <label class="field" for="nm">איך קוראים לך?
-        <input type="text" id="nm" maxlength="30" placeholder="השם שיופיע בטבלה" autocomplete="nickname">
+      <label class="field" for="nm"><span>איך קוראים לך?<span class="ar" lang="ar">ما اسمك؟</span></span>
+        <input type="text" id="nm" maxlength="30" placeholder="השם שיופיע בטבלה · الاسم الذي سيظهر في الجدول" autocomplete="nickname">
       </label>
     </section>
 
     <section>
-      <div class="sec-h"><h2>חלוקת המנדטים</h2><button class="btn ghost" id="resetPoll" type="button">חזרה לממוצע הסקרים</button></div>
-      <p class="hint">המספרים מתחילים מממוצע הסקרים (סרוגים, 20.10). כל רשימה מקבלת 0 (לא עוברת את אחוז החסימה) או 4 מנדטים ומעלה, ובסך הכול צריך להגיע ל-120 בדיוק.</p>
+      <div class="sec-h"><h2>חלוקת המנדטים<span class="ar" lang="ar">توزيع المقاعد</span></h2><button class="btn ghost" id="resetPoll" type="button">חזרה לממוצע הסקרים<span class="ar" lang="ar">معدل الاستطلاعات</span></button></div>
+      <p class="hint">המספרים מתחילים מממוצע הסקרים (סרוגים, 20.10). כל רשימה מקבלת 0 (לא עוברת את אחוז החסימה) או 4 מנדטים ומעלה, ובסך הכול צריך להגיע ל-120 בדיוק.<span class="ar" lang="ar">الأرقام تبدأ من معدل الاستطلاعات (سروغيم، 20.10). كل قائمة تحصل على 0 (لا تتجاوز نسبة الحسم) أو 4 مقاعد فأكثر، والمجموع يجب أن يكون 120 بالضبط.</span></p>
       <div class="slips" id="slips"></div>
     </section>
 
     <section>
-      <div class="sec-h"><h2>שאלות בונוס</h2></div>
+      <div class="sec-h"><h2>שאלות בונוס<span class="ar" lang="ar">أسئلة إضافية</span></h2></div>
       <div class="qs">
         <div class="q">
-          <span class="qt">למי יטיל הנשיא את הרכבת הממשלה?</span>
+          <span class="qt">למי יטיל הנשיא את הרכבת הממשלה?<span class="ar" lang="ar">مَن سيكلّفه الرئيس بتشكيل الحكومة؟</span></span>
           <select id="qpm">
-            <option value="">בחרו…</option>
-            <option value="netanyahu">בנימין נתניהו</option>
-            <option value="eisenkot">גדי איזנקוט</option>
-            <option value="bennett">נפתלי בנט</option>
-            <option value="other">מישהו אחר</option>
+            <option value="">בחרו… · اختاروا…</option>
+            <option value="netanyahu">בנימין נתניהו · بنيامين نتنياهو</option>
+            <option value="eisenkot">גדי איזנקוט · غادي أيزنكوت</option>
+            <option value="bennett">נפתלי בנט · نفتالي بينيت</option>
+            <option value="other">מישהו אחר · شخص آخر</option>
           </select>
-          <span class="pts">10 נק׳</span>
+          <span class="pts inl">10 נק׳<span class="ar" lang="ar">10 نقاط</span></span>
         </div>
         <div class="q">
-          <span class="qt">איזו רשימה תהיה הגדולה ביותר?</span>
-          <select id="qlg"><option value="">בחרו…</option></select>
-          <span class="pts">8 נק׳</span>
+          <span class="qt">איזו רשימה תהיה הגדולה ביותר?<span class="ar" lang="ar">أي قائمة ستكون الأكبر؟</span></span>
+          <select id="qlg"><option value="">בחרו… · اختاروا…</option></select>
+          <span class="pts inl">8 נק׳<span class="ar" lang="ar">8 نقاط</span></span>
         </div>
         <div class="q">
-          <span class="qt">מה יהיה אחוז ההצבעה?</span>
-          <input type="number" id="qto" min="50" max="90" step="0.1" placeholder="בבחירות 2022: 70.6">
-          <span class="pts">עד 10 נק׳ (מורידים 2 על כל אחוז סטייה)</span>
+          <span class="qt">מה יהיה אחוז ההצבעה?<span class="ar" lang="ar">ما نسبة التصويت؟</span></span>
+          <input type="number" id="qto" min="50" max="90" step="0.1" placeholder="2022: 70.6">
+          <span class="pts">עד 10 נק׳ (מורידים 2 על כל אחוז סטייה)<span class="ar" lang="ar">حتى 10 نقاط (تُخصم 2 عن كل نقطة مئوية فرق)</span></span>
         </div>
       </div>
     </section>
 
     <section id="submitArea">
       <div class="row">
-        <button class="btn" id="submitBtn" type="button">שליחת הניחוש</button>
+        <button class="btn" id="submitBtn" type="button">שליחת הניחוש<span class="ar" lang="ar">إرسال التخمين</span></button>
         <span class="msg" id="submitMsg"></span>
       </div>
       <div class="panel" id="codePanel" hidden>
-        <strong>שלחו את הניחוש למארגן בוואטסאפ</strong>
-        <span>הקוד שומר את כל הניחוש שלכם. שלחו אותו כמו שהוא, והמארגן יכניס אותו לטבלה.</span>
+        <strong>שלחו את הניחוש למארגן בוואטסאפ<span class="ar" lang="ar">أرسلوا التخمين للمنظّم عبر واتساب</span></strong>
+        <span>הקוד שומר את כל הניחוש שלכם. שלחו אותו כמו שהוא, והמארגן יכניס אותו לטבלה.<span class="ar" lang="ar">الرمز يحفظ تخمينكم كاملًا. أرسلوه كما هو، والمنظّم سيضيفه إلى الجدول.</span></span>
         <code id="codeBox"></code>
         <div class="row">
-          <a class="btn" id="waLink" href="#" target="_blank" rel="noopener">פתיחה בוואטסאפ</a>
-          <button class="btn ghost" id="copyBtn" type="button">העתקת ההודעה</button>
+          <a class="btn" id="waLink" href="#" target="_blank" rel="noopener">פתיחה בוואטסאפ<span class="ar" lang="ar">فتح في واتساب</span></a>
+          <button class="btn ghost" id="copyBtn" type="button">העתקת ההודעה<span class="ar" lang="ar">نسخ الرسالة</span></button>
           <span class="msg" id="copyMsg"></span>
         </div>
       </div>
     </section>
 
     <section>
-      <div class="sec-h"><h2>איך סופרים נקודות</h2></div>
+      <div class="sec-h"><h2>איך סופרים נקודות<span class="ar" lang="ar">كيف نحسب النقاط</span></h2></div>
       <ul class="rules">
-        <li>על כל רשימה: 5 נקודות פחות ההפרש במנדטים (לא פחות מ-0).</li>
-        <li>על כל רשימה גבולית (עמך ישראל, המילואימניקים, רע״ם, הציונות הדתית): 4 נקודות אם צדקתם אם היא עוברת או לא.</li>
-        <li>גוש הקואליציה (ליכוד, ש״ס, יהדות התורה, עוצמה יהודית, הציונות הדתית): 15 נקודות פחות 2 על כל מנדט הפרש.</li>
-        <li>שאלות הבונוס: עד 28 נקודות.</li>
-        <li>בשוויון, מי ששלח קודם מנצח.</li>
+        <li>על כל רשימה: 5 נקודות פחות ההפרש במנדטים (לא פחות מ-0).<span class="ar" lang="ar">عن كل قائمة: 5 نقاط ناقص الفرق في عدد المقاعد (ليس أقل من 0).</span></li>
+        <li>על כל רשימה גבולית (עמך ישראל, המילואימניקים, רע״ם, הציונות הדתית): 4 נקודות אם צדקתם אם היא עוברת או לא.<span class="ar" lang="ar">عن كل قائمة على الحافة (عمخا يسرائيل، جنود الاحتياط، الموحدة، الصهيونية الدينية): 4 نقاط إذا أصبتم هل تتجاوز نسبة الحسم أم لا.</span></li>
+        <li>גוש הקואליציה (ליכוד, ש״ס, יהדות התורה, עוצמה יהודית, הציונות הדתית): 15 נקודות פחות 2 על כל מנדט הפרש.<span class="ar" lang="ar">كتلة الائتلاف (الليكود، شاس، يهدوت هتوراه، عوتسما يهوديت، الصهيونية الدينية): 15 نقطة ناقص 2 عن كل مقعد فرق.</span></li>
+        <li>שאלות הבונוס: עד 28 נקודות.<span class="ar" lang="ar">الأسئلة الإضافية: حتى 28 نقطة.</span></li>
+        <li>בשוויון, מי ששלח קודם מנצח.<span class="ar" lang="ar">عند التعادل، يفوز من أرسل أولًا.</span></li>
       </ul>
     </section>
 
@@ -274,7 +294,7 @@ footer{color:var(--muted);font-size:12px;padding-block:24px 30px;text-align:cent
     <section id="boardBody"></section>
   </div>
 
-  <!-- ADMIN -->
+  <!-- ADMIN (organizer only, Hebrew) -->
   <div id="tab-admin" hidden>
     <section>
       <div class="sec-h"><h2>הכנסת קודים מוואטסאפ</h2></div>
@@ -295,33 +315,36 @@ footer{color:var(--muted);font-size:12px;padding-block:24px 30px;text-align:cent
     </section>
   </div>
 
-  <footer>ממוצע הסקרים לפי סרוגים, 20.10.2026. זה משחק בין חברים, לא סקר.</footer>
+  <footer>ממוצע הסקרים לפי סרוגים, 20.10.2026. זה משחק בין חברים, לא סקר.<span class="ar" lang="ar">معدل الاستطلاعات حسب سروغيم، 20.10.2026. هذه لعبة بين أصدقاء، وليست استطلاعًا.</span></footer>
 </div>
 
 <script>
 const PARTIES=[
- {id:"likud",n:"הליכוד",ltr:"מחל",l:"בנימין נתניהו",b:"coal",p:22},
- {id:"yashar",n:"ישר!",ltr:"דרך",l:"גדי איזנקוט",b:"opp",p:21},
- {id:"beyachad",n:"ביחד",ltr:"רק",l:"נפתלי בנט",b:"opp",p:12},
- {id:"shas",n:"ש״ס",ltr:"שס",l:"אריה דרעי",b:"coal",p:8},
- {id:"otzma",n:"עוצמה יהודית",ltr:"ב",l:"איתמר בן גביר",b:"coal",p:8},
- {id:"dems",n:"הדמוקרטים",ltr:"אמת",l:"יאיר גולן",b:"opp",p:8},
- {id:"joint",n:"הרשימה המשותפת",ltr:"ודם",l:"חד״ש-תע״ל-בל״ד",b:"arab",p:8},
- {id:"yb",n:"ישראל ביתנו",ltr:"ל",l:"אביגדור ליברמן",b:"opp",p:7},
- {id:"utj",n:"יהדות התורה",ltr:"ג",l:"",b:"coal",p:7},
- {id:"rzp",n:"הציונות הדתית-זהות",ltr:"ט",l:"בצלאל סמוטריץ׳",b:"coal",p:6,edge:1},
- {id:"raam",n:"רע״ם",ltr:"עם",l:"מנסור עבאס",b:"arab",p:5,edge:1},
- {id:"amcha",n:"עמך ישראל",ltr:"ך",l:"עופר וינטר",b:"other",p:4,edge:1},
- {id:"reserv",n:"המילואימניקים והכלכלית",ltr:"די",l:"יועז הנדל וירון זליכה",b:"other",p:4,edge:1},
- {id:"others",n:"כל השאר",ltr:"",l:"עוד 25 רשימות קטנות",b:"other",p:0},
+ {id:"likud",n:"הליכוד",a:"الليكود",ltr:"מחל",l:"בנימין נתניהו",la:"بنيامين نتنياهو",b:"coal",p:22},
+ {id:"yashar",n:"ישר!",a:"يشار!",ltr:"דרך",l:"גדי איזנקוט",la:"غادي أيزنكوت",b:"opp",p:21},
+ {id:"beyachad",n:"ביחד",a:"معًا (بياحد)",ltr:"רק",l:"נפתלי בנט",la:"نفتالي بينيت",b:"opp",p:12},
+ {id:"shas",n:"ש״ס",a:"شاس",ltr:"שס",l:"אריה דרעי",la:"أرييه درعي",b:"coal",p:8},
+ {id:"otzma",n:"עוצמה יהודית",a:"عوتسما يهوديت",ltr:"ב",l:"איתמר בן גביר",la:"إيتمار بن غفير",b:"coal",p:8},
+ {id:"dems",n:"הדמוקרטים",a:"الديمقراطيون",ltr:"אמת",l:"יאיר גולן",la:"يائير غولان",b:"opp",p:8},
+ {id:"joint",n:"הרשימה המשותפת",a:"القائمة المشتركة",ltr:"ודם",l:"חד״ש-תע״ל-בל״ד",la:"الجبهة-العربية للتغيير-التجمع",b:"arab",p:8},
+ {id:"yb",n:"ישראל ביתנו",a:"يسرائيل بيتينو",ltr:"ל",l:"אביגדור ליברמן",la:"أفيغدور ليبرمان",b:"opp",p:7},
+ {id:"utj",n:"יהדות התורה",a:"يهدوت هتوراه",ltr:"ג",l:"",la:"",b:"coal",p:7},
+ {id:"rzp",n:"הציונות הדתית-זהות",a:"الصهيونية الدينية-زهوت",ltr:"ט",l:"בצלאל סמוטריץ׳",la:"بتسلئيل سموتريتش",b:"coal",p:6,edge:1},
+ {id:"raam",n:"רע״ם",a:"الموحدة",ltr:"עם",l:"מנסור עבאס",la:"منصور عباس",b:"arab",p:5,edge:1},
+ {id:"amcha",n:"עמך ישראל",a:"عمخا يسرائيل",ltr:"ך",l:"עופר וינטר",la:"عوفر فينتر",b:"other",p:4,edge:1},
+ {id:"reserv",n:"המילואימניקים והכלכלית",a:"جنود الاحتياط والاقتصادية",ltr:"די",l:"יועז הנדל וירון זליכה",la:"يوعاز هندل ويارون زليخا",b:"other",p:4,edge:1},
+ {id:"others",n:"כל השאר",a:"باقي القوائم",ltr:"",l:"עוד 25 רשימות קטנות",la:"25 قائمة صغيرة أخرى",b:"other",p:0},
 ];
-const BLOCS={coal:"גוש הקואליציה",opp:"האופוזיציה",arab:"המפלגות הערביות",other:"מחוץ לגושים"};
-const PM={netanyahu:"נתניהו",eisenkot:"איזנקוט",bennett:"בנט",other:"אחר"};
+const BLOCS={coal:["גוש הקואליציה","كتلة الائتلاف"],opp:["האופוזיציה","المعارضة"],arab:["המפלגות הערביות","الأحزاب العربية"],other:["מחוץ לגושים","خارج الكتل"]};
+const PM={netanyahu:["נתניהו","نتنياهو"],eisenkot:["איזנקוט","أيزنكوت"],bennett:["בנט","بينيت"],other:["אחר","آخر"]};
 const ORG_PHONE=""; // international format without + or leading 0, e.g. 972501234567; empty = the friend picks a chat
+const SCRIPT_URL=""; // Google Apps Script web app that stores guesses (standalone site); empty = WhatsApp code only
 const LOCK=Date.parse("2026-10-27T07:00:00+02:00");
 const CLOSE=Date.parse("2026-10-27T22:00:00+02:00");
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const B=(he,ar)=>`${he}<span class="ar" lang="ar">${ar}</span>`; // Hebrew + Arabic pair (both already safe HTML)
+const say=(el,he,ar,cls)=>{el.innerHTML=B(he,ar);if(cls!=null)el.className=cls};
 const locked=()=>Date.now()>=LOCK;
 const sum=a=>a.reduce((x,y)=>x+(+y||0),0);
 const blocOf=s=>{const o={coal:0,opp:0,arab:0,other:0};PARTIES.forEach((p,i)=>o[p.b]+=+s[i]||0);return o};
@@ -331,22 +354,22 @@ let db=null,user=null,uid=null,isOwner=false,canWrite=null;
 let guesses=[],external=[],results=null;
 
 /* ---------- countdown ---------- */
-const RINGS=[{k:"d",l:"ימים",max:7,c:"var(--pink)"},{k:"h",l:"שעות",max:24,c:"var(--teal)"},{k:"m",l:"דקות",max:60,c:"var(--yellow)"},{k:"s",l:"שניות",max:60,c:"var(--purple)"}];
+const RINGS=[{k:"d",l:["ימים","أيام"],max:7,c:"var(--pink)"},{k:"h",l:["שעות","ساعات"],max:24,c:"var(--teal)"},{k:"m",l:["דקות","دقائق"],max:60,c:"var(--yellow)"},{k:"s",l:["שניות","ثوانٍ"],max:60,c:"var(--purple)"}];
 const CIRC=2*Math.PI*40;
 let cdTarget=null;
 function buildRings(label,target){
   cdTarget=target;
-  $("#countdown").innerHTML=`<span class="cd-label">${label}</span><div class="rings">`+RINGS.map(r=>`<div class="ring" style="--c:${r.c}"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="40"/><circle class="prog" id="rp-${r.k}" cx="50" cy="50" r="40" stroke-dasharray="${CIRC}" stroke-dashoffset="${CIRC}"/></svg><div class="val"><b class="num" id="rv-${r.k}">0</b><small>${r.l}</small></div></div>`).join("")+`</div>`;
+  $("#countdown").innerHTML=`<span class="cd-label">${label}</span><div class="rings">`+RINGS.map(r=>`<div class="ring" style="--c:${r.c}"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="40"/><circle class="prog" id="rp-${r.k}" cx="50" cy="50" r="40" stroke-dasharray="${CIRC}" stroke-dashoffset="${CIRC}"/></svg><div class="val"><b class="num" id="rv-${r.k}">0</b><small>${B(...r.l)}</small></div></div>`).join("")+`</div>`;
 }
 let cdMode="";
 function tick(){
   const now=Date.now();
   const mode=now<LOCK?"pre":now<CLOSE?"open":"closed";
   if(mode!==cdMode){cdMode=mode;
-    if(mode==="pre")buildRings("עד שהקלפיות נפתחות והניחושים ננעלים",LOCK);
-    else if(mode==="open")buildRings("הקלפיות פתוחות, הניחושים נעולים. עד המדגמים נשארו",CLOSE);
+    if(mode==="pre")buildRings(B("עד שהקלפיות נפתחות והניחושים ננעלים","حتى فتح الصناديق وإغلاق التخمينات"),LOCK);
+    else if(mode==="open")buildRings(B("הקלפיות פתוחות, הניחושים נעולים. עד המדגמים נשארו","الصناديق مفتوحة والتخمينات مغلقة. حتى نشر العيّنات بقي"),CLOSE);
     else{cdTarget=null}}
-  if(mode==="closed"){$("#countdown").innerHTML=`<div class="cd-done">${results?"התוצאות בטבלה. מי ניצח? 🏆":"הקלפיות נסגרו. עכשיו מחכים לתוצאות…"}</div>`;return}
+  if(mode==="closed"){$("#countdown").innerHTML=`<div class="cd-done">${results?B("התוצאות בטבלה. מי ניצח? 🏆","النتائج في الجدول. من فاز؟ 🏆"):B("הקלפיות נסגרו. עכשיו מחכים לתוצאות…","أُغلقت الصناديق. الآن ننتظر النتائج…")}</div>`;return}
   const ms=Math.max(0,cdTarget-now),v={d:Math.floor(ms/864e5),h:Math.floor(ms/36e5)%24,m:Math.floor(ms/6e4)%60,s:Math.floor(ms/1e3)%60};
   RINGS.forEach(r=>{$("#rv-"+r.k).textContent=String(v[r.k]).padStart(2,"0");$("#rp-"+r.k).setAttribute("stroke-dashoffset",CIRC*(1-Math.min(1,v[r.k]/r.max)))});
 }
@@ -357,17 +380,18 @@ document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("clic
 function showTab(t){
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
   ["guess","board","admin"].forEach(x=>$("#tab-"+x).hidden=x!==t);
-  if(t==="board")renderBoard();
+  if(t==="board"){if(SCRIPT_URL&&!db)remote=null;renderBoard()}
 }
 
 /* ---------- guess form ---------- */
-const lg=$("#qlg");PARTIES.slice(0,-1).forEach(p=>lg.insertAdjacentHTML("beforeend",`<option value="${p.id}">${esc(p.n)}</option>`));
+const lg=$("#qlg");PARTIES.slice(0,-1).forEach(p=>lg.insertAdjacentHTML("beforeend",`<option value="${p.id}">${esc(p.n)} · ${esc(p.a)}</option>`));
 
 function slipHTML(p,i,prefix,val){
+  const g=prefix==="g";
   return `<div class="slip" style="--bc:var(--${p.b})" id="${prefix}row${i}">
-    <span class="bslip${p.ltr?"":" blank"}" aria-hidden="true"><b>${p.ltr?esc(p.ltr):"?"}</b><small>${esc(p.n)}</small></span>
-    <div class="who"><div class="pname">${esc(p.n)}</div>
-      <div class="meta">${p.l?`<span>${esc(p.l)}</span>`:""}<span class="chip">${BLOCS[p.b]}</span>${prefix==="g"&&p.id!=="others"?`<span class="num">בסקרים: ${p.p}</span>`:""}${p.edge&&prefix==="g"?`<span class="edge">על הגבול</span>`:""}</div></div>
+    <span class="bslip${p.ltr?"":" blank"}" aria-hidden="true"><b>${p.ltr?esc(p.ltr):"?"}</b><small>${esc(p.n)}</small><small class="sa">${esc(p.a)}</small></span>
+    <div class="who"><div class="pname">${g?B(esc(p.n),esc(p.a)):esc(p.n)}</div>
+      <div class="meta">${p.l?`<span>${g&&p.la?B(esc(p.l),esc(p.la)):esc(p.l)}</span>`:""}${g?"":`<span class="chip">${BLOCS[p.b][0]}</span>`}${g&&p.id!=="others"?`<span class="num inl">${B("סקרים","استطلاعات")}: ${p.p}</span>`:""}${p.edge&&g?`<span class="edge">${B("על הגבול","على الحافة")}</span>`:""}</div></div>
     <div class="step"><button type="button" data-d="1" data-i="${i}" aria-label="הוספת מנדט ל${esc(p.n)}">+</button><input class="num" type="number" inputmode="numeric" id="${prefix}s${i}" data-i="${i}" min="0" max="120" value="${val}" aria-label="מנדטים ל${esc(p.n)}"><button type="button" data-d="-1" data-i="${i}" aria-label="הורדת מנדט מ${esc(p.n)}">−</button></div>
   </div>`;
 }
@@ -388,20 +412,21 @@ $("#resetPoll").addEventListener("click",()=>{setSeats(PARTIES.map(p=>p.p));save
 function validate(s){
   const bad=s.map((v,i)=>v>0&&v<4?i:-1).filter(i=>i>=0);
   const t=sum(s);
-  if(bad.length)return {ok:false,bad,msg:"רשימה לא יכולה לקבל 1–3 מנדטים: 0 או 4 ומעלה."};
-  if(t!==120)return {ok:false,bad,msg:t<120?`חסרים ${120-t} מנדטים`:`יש ${t-120} מנדטים מיותרים`};
-  return {ok:true,bad,msg:""};
+  if(bad.length)return {ok:false,bad,msg:["רשימה לא יכולה לקבל 1–3 מנדטים: 0 או 4 ומעלה.","لا يمكن لقائمة أن تحصل على 1–3 مقاعد: 0 أو 4 فأكثر."]};
+  if(t!==120)return {ok:false,bad,msg:t<120?[`חסרים ${120-t} מנדטים`,`ينقص ${120-t} مقاعد`]:[`יש ${t-120} מנדטים מיותרים`,`يوجد ${t-120} مقاعد زائدة`]};
+  return {ok:true,bad,msg:null};
 }
 function renderTally(){
   const t=sum(seats),v=validate(seats),bl=blocOf(seats);
   $("#total").textContent=t+" / 120";$("#total").className="total num "+(t===120?"ok":"no");
   PARTIES.forEach((p,i)=>{const r=$("#grow"+i);r.classList.toggle("out",!seats[i]);r.classList.toggle("bad",v.bad.includes(i))});
   const m=$("#tallyMsg");
-  if(!v.ok){m.textContent=v.msg;m.className="msg no"}
-  else{m.textContent=bl.coal>=61?`לפי הניחוש שלך לגוש נתניהו יש ${bl.coal}, כלומר רוב`:`לפי הניחוש שלך לגוש נתניהו יש ${bl.coal}, בלי רוב`;m.className="msg ok"}
+  if(!v.ok)say(m,...v.msg,"msg no");
+  else if(bl.coal>=61)say(m,`לגוש נתניהו יש ${bl.coal}, כלומר רוב`,`لكتلة نتنياهو ${bl.coal}، أي أغلبية`,"msg ok");
+  else say(m,`לגוש נתניהו יש ${bl.coal}, בלי רוב`,`لكتلة نتنياهو ${bl.coal}، بدون أغلبية`,"msg ok");
   const bar=$("#bar");bar.querySelectorAll("span").forEach(s=>s.remove());
   ["coal","other","arab","opp"].forEach(k=>{const s=document.createElement("span");s.style.width=(bl[k]/120*100)+"%";s.style.background=`var(--${k})`;bar.insertBefore(s,bar.querySelector(".m61"))});
-  $("#legend").innerHTML=["coal","opp","arab","other"].map(k=>`<span style="--bc:var(--${k})"><i></i>${BLOCS[k]} <span class="num">${bl[k]}</span></span>`).join("")+`<span>קו הרוב: 61</span>`;
+  $("#legend").innerHTML=["coal","opp","arab","other"].map(k=>`<span style="--bc:var(--${k})"><i></i>${B(...BLOCS[k])} <span class="num">${bl[k]}</span></span>`).join("")+`<span>${B("קו הרוב","خط الأغلبية")}: 61</span>`;
 }
 renderTally();
 
@@ -413,7 +438,7 @@ function saveDraft(){try{localStorage.setItem("bh-draft",JSON.stringify(currentG
 ["#nm","#qpm","#qlg","#qto"].forEach(s=>$(s).addEventListener("input",saveDraft));
 try{const d=JSON.parse(localStorage.getItem("bh-draft")||"null");if(d)fillGuess(d)}catch(e){}
 
-/* ---------- code encoding (for friends outside the shared table) ---------- */
+/* ---------- code encoding (fallback when saving online is not possible) ---------- */
 const b64e=s=>btoa(unescape(encodeURIComponent(s))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
 const b64d=s=>decodeURIComponent(escape(atob(s.replace(/-/g,"+").replace(/_/g,"/"))));
 const encode=g=>"BH1."+b64e(JSON.stringify(g));
@@ -421,26 +446,37 @@ function decode(c){try{const g=JSON.parse(b64d(c.slice(4)));if(typeof g.n!=="str
 function waText(g){
   const lines=PARTIES.map((p,i)=>g.s[i]?`${p.n} ${g.s[i]}`:null).filter(Boolean).join(" · ");
   const bl=blocOf(g.s);
-  return `🗳️ המדגם של החבר׳ה – הניחוש של ${g.n}\n${lines}\nגוש הקואליציה: ${bl.coal}\nקוד למארגן: ${encode(g)}`;
+  return `🗳️ המדגם של החבר׳ה | استطلاع الشلّة – ${g.n}\n${lines}\nגוש הקואליציה | كتلة الائتلاف: ${bl.coal}\nקוד | الرمز: ${encode(g)}`;
 }
 
+const LOCKED_MSG=["הקלפיות כבר נפתחו והניחושים נעולים.","الصناديق فُتحت والتخمينات مغلقة."];
 $("#submitBtn").addEventListener("click",async()=>{
   const m=$("#submitMsg"),g=currentGuess(),v=validate(g.s);
-  if(locked()){m.textContent="הקלפיות כבר נפתחו והניחושים נעולים.";m.className="msg no";return}
-  if(g.n.length<2){m.textContent="כתבו שם (לפחות 2 תווים).";m.className="msg no";$("#nm").focus();return}
-  if(!v.ok){m.textContent=v.msg;m.className="msg no";return}
+  if(locked()){say(m,...LOCKED_MSG,"msg no");return}
+  if(g.n.length<2){say(m,"כתבו שם (לפחות 2 תווים).","اكتبوا اسمًا (حرفان على الأقل).","msg no");$("#nm").focus();return}
+  if(!v.ok){say(m,...v.msg,"msg no");return}
+  if(SCRIPT_URL&&!db){
+    say(m,"שולח…","جارٍ الإرسال…","msg");$("#submitBtn").disabled=true;
+    try{
+      const r=await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify({n:g.n,code:encode(g)})});
+      const j=await r.json();
+      $("#submitBtn").disabled=false;
+      if(j.ok){say(m,"✓ הניחוש נשמר! אפשר לשנות ולשלוח שוב עד 07:00 ביום הבחירות, הניחוש האחרון הוא שקובע.","✓ تم حفظ التخمين! يمكن التعديل والإرسال من جديد حتى 07:00 يوم الانتخابات، والتخمين الأخير هو المعتمد.","msg ok");$("#codePanel").hidden=true;return}
+      if(j.error==="locked"){say(m,...LOCKED_MSG,"msg no");return}
+    }catch(e){$("#submitBtn").disabled=false}
+  }
   if(db&&uid&&canWrite!==false){
-    m.textContent="שומר…";m.className="msg";
-    try{await db.doc("guesses/"+uid).set(g);m.textContent="הניחוש נשמר. אפשר לעדכן אותו עד 07:00 ביום הבחירות.";m.className="msg ok";$("#codePanel").hidden=true;return}
+    say(m,"שומר…","جارٍ الحفظ…","msg");
+    try{await db.doc("guesses/"+uid).set(g);say(m,"הניחוש נשמר. אפשר לעדכן אותו עד 07:00 ביום הבחירות.","تم حفظ التخمين. يمكن تعديله حتى 07:00 يوم الانتخابات.","msg ok");$("#codePanel").hidden=true;return}
     catch(e){canWrite=false}
   }
   const txt=waText(g);$("#codeBox").textContent=encode(g);
   $("#waLink").href="https://wa.me/"+ORG_PHONE+"?text="+encodeURIComponent(txt);
-  $("#codePanel").hidden=false;m.textContent="הניחוש מוכן. נשאר רק לשלוח אותו למארגן.";m.className="msg ok";
+  $("#codePanel").hidden=false;say(m,"הניחוש מוכן. נשאר רק לשלוח אותו למארגן.","التخمين جاهز. بقي فقط إرساله للمنظّم.","msg ok");
 });
 $("#copyBtn").addEventListener("click",async()=>{
   const txt=waText(currentGuess()),m=$("#copyMsg");
-  try{await navigator.clipboard.writeText(txt);m.textContent="ההודעה הועתקה"}catch(e){const r=document.createRange();r.selectNodeContents($("#codeBox"));const s=getSelection();s.removeAllRanges();s.addRange(r);m.textContent="סמנו והעתיקו את הקוד ידנית"}
+  try{await navigator.clipboard.writeText(txt);say(m,"ההודעה הועתקה","تم نسخ الرسالة")}catch(e){const r=document.createRange();r.selectNodeContents($("#codeBox"));const s=getSelection();s.removeAllRanges();s.addRange(r);say(m,"סמנו והעתיקו את הקוד ידנית","حدّدوا الرمز وانسخوه يدويًا")}
 });
 
 /* ---------- scoring ---------- */
@@ -457,38 +493,59 @@ function score(g,R){
 }
 
 /* ---------- board ---------- */
+let remote=null,remoteLoading=false;
+async function loadRemote(){
+  if(remoteLoading)return;remoteLoading=true;
+  try{
+    const j=await (await fetch(SCRIPT_URL)).json();
+    remote=j;
+    if(j.locked){
+      // dedupe by name: the last guess a person sent wins
+      const byName=new Map();(j.entries||[]).map(e=>decode(e.code)).filter(Boolean).forEach(g=>byName.set(g.n.trim(),g));
+      guesses=[...byName.values()];results=j.results||null;tick();
+    }
+  }catch(e){remote={locked:false,names:[]}}
+  remoteLoading=false;renderBoard();
+}
+if(SCRIPT_URL&&!(window.claude&&window.claude.use)){document.querySelector("nav.tabs").classList.add("remote")}
 function allEntries(){
   return [...guesses.map(d=>({...d,src:"db"})),...external.map(d=>({...d,src:"ext"}))].filter(e=>e&&e.n&&Array.isArray(e.s));
 }
+const HIDDEN_HINT=B("הניחושים עצמם ייחשפו כשהקלפיות ייפתחו ב-07:00, כדי שאף אחד לא יעתיק.","ستُكشف التخمينات عند فتح الصناديق الساعة 07:00، كي لا ينسخ أحد.");
+const countH2=n=>n?B(`${n} ניחושים עד עכשיו`,`${n} تخمينات حتى الآن`):B("עוד אין ניחושים","لا توجد تخمينات بعد");
 function renderBoard(){
   const el=$("#boardBody"),E=allEntries();
-  if(!db){el.innerHTML=`<div class="sec-h"><h2>טבלת הניחושים</h2></div><div class="empty">הטבלה המשותפת מוצגת רק לחברי הארגון של המארגן. אם שלחתם קוד בוואטסאפ, הניחוש שלכם אצל המארגן, והוא יפרסם את טבלת המנצחים בקבוצה אחרי התוצאות.</div>`;return}
-  if(!E.length){el.innerHTML=`<div class="sec-h"><h2>טבלת הניחושים</h2></div><div class="empty">עוד אף אחד לא שלח ניחוש. מי שיישלח ראשון, השם שלו יופיע כאן.</div>`;return}
+  if(!db&&SCRIPT_URL){
+    if(remote===null){el.innerHTML=`<div class="empty">${B("טוען את הניחושים…","جارٍ تحميل التخمينات…")}</div>`;loadRemote();return}
+    if(!remote.locked){const N=remote.names||[];el.innerHTML=`<div class="sec-h"><h2>${countH2(N.length)}</h2></div><p class="hint">${HIDDEN_HINT}</p><div class="names">${N.map(n=>`<span>${esc(n)}</span>`).join("")}</div>`;return}
+  }
+  if(!db&&!SCRIPT_URL){el.innerHTML=`<div class="sec-h"><h2>${B("טבלת הניחושים","جدول التخمينات")}</h2></div><div class="empty">${B("הטבלה מוצגת רק למארגן. הניחוש שלכם אצלו, והוא יפרסם את טבלת המנצחים בקבוצה אחרי התוצאות.","الجدول متاح للمنظّم فقط. تخمينكم عنده، وسينشر جدول الفائزين في المجموعة بعد النتائج.")}</div>`;return}
+  if(!E.length){el.innerHTML=`<div class="sec-h"><h2>${B("טבלת הניחושים","جدول التخمينات")}</h2></div><div class="empty">${B("עוד אף אחד לא שלח ניחוש. מי שישלח ראשון, השם שלו יופיע כאן.","لم يرسل أحد تخمينًا بعد. أول من يرسل سيظهر اسمه هنا.")}</div>`;return}
   const hasRes=results&&Array.isArray(results.s)&&sum(results.s)>0;
   if(!locked()&&!isOwner){
-    el.innerHTML=`<div class="sec-h"><h2>${E.length} ניחושים עד עכשיו</h2></div><p class="hint">הניחושים עצמם ייחשפו כשהקלפיות ייפתחו, כדי שאף אחד לא יעתיק.</p><div class="names">${E.sort((a,b)=>a.t-b.t).map(e=>`<span>${esc(e.n)}</span>`).join("")}</div>`;return;
+    el.innerHTML=`<div class="sec-h"><h2>${countH2(E.length)}</h2></div><p class="hint">${HIDDEN_HINT}</p><div class="names">${E.sort((a,b)=>a.t-b.t).map(e=>`<span>${esc(e.n)}</span>`).join("")}</div>`;return;
   }
   let html="";
   if(hasRes){
     const ranked=E.map(e=>({e,sc:score(e,results)})).sort((a,b)=>b.sc.total-a.sc.total||a.e.t-b.e.t);
-    html+=`<div class="sec-h"><h2>טבלת המנצחים</h2><span class="hint">${results.partial?"לפי תוצאות חלקיות":"לפי התוצאות"}</span></div><div class="rank">`+
-      ranked.map((r,k)=>`<div class="rk ${k<3?"top":""}"><span class="pos num">${k+1}</span><div><strong>${esc(r.e.n)}</strong><div class="br num">מנדטים ${r.sc.party} · חסימה ${r.sc.thr} · גוש ${r.sc.bloc} · בונוס ${r.sc.bonus}</div></div><span class="sc num">${r.sc.total}</span></div>`).join("")+`</div>`;
+    html+=`<div class="sec-h"><h2>${B("טבלת המנצחים","جدول الفائزين")}</h2><span class="hint inl">${results.partial?B("לפי תוצאות חלקיות","حسب نتائج جزئية"):B("לפי התוצאות","حسب النتائج")}</span></div><div class="rank">`+
+      ranked.map((r,k)=>`<div class="rk ${k<3?"top":""}"><span class="pos num">${k+1}</span><div><strong>${esc(r.e.n)}</strong><div class="br num">מנדטים/مقاعد ${r.sc.party} · חסימה/الحسم ${r.sc.thr} · גוש/الكتلة ${r.sc.bloc} · בונוס/إضافي ${r.sc.bonus}</div></div><span class="sc num">${r.sc.total}</span></div>`).join("")+`</div>`;
   } else if(!locked()) {
     html+=`<p class="hint">רק המארגן רואה את הניחושים לפני 07:00 ביום הבחירות.</p>`;
   }
   const avg=PARTIES.map((p,i)=>Math.round(sum(E.map(e=>e.s[i]))/E.length*10)/10);
-  const head=`<tr><th>שם</th>${PARTIES.map(p=>`<th>${esc(p.n)}</th>`).join("")}<th>קואליציה</th><th>מרכיב</th><th>גדולה</th><th>הצבעה</th></tr>`;
-  const row=(n,s,o={},cls="")=>`<tr class="${cls}"><td>${esc(n)}</td>${s.map(v=>`<td>${v}</td>`).join("")}<td>${o.coal??blocOf(s).coal}</td><td>${o.pm?PM[o.pm]||"":""}</td><td>${o.lg?esc((PARTIES.find(p=>p.id===o.lg)||{}).n||""):""}</td><td>${o.to??""}</td></tr>`;
+  const head=`<tr><th>${B("שם","الاسم")}</th>${PARTIES.map(p=>`<th>${B(esc(p.n),esc(p.a))}</th>`).join("")}<th>${B("קואליציה","الائتلاف")}</th><th>${B("מרכיב","المكلَّف")}</th><th>${B("גדולה","الأكبر")}</th><th>${B("הצבעה","التصويت")}</th></tr>`;
+  const row=(n,s,o={},cls="")=>`<tr class="${cls}"><td>${n}</td>${s.map(v=>`<td>${v}</td>`).join("")}<td>${o.coal??blocOf(s).coal}</td><td>${o.pm&&PM[o.pm]?PM[o.pm].join(" · "):""}</td><td>${o.lg?esc((PARTIES.find(p=>p.id===o.lg)||{}).n||""):""}</td><td>${o.to??""}</td></tr>`;
   const avgCoal=Math.round(sum(E.map(e=>blocOf(e.s).coal))/E.length*10)/10;
-  html+=`<div class="sec-h"><h2>כל הניחושים</h2><span class="hint num">${E.length} משתתפים</span></div><div class="tbl-wrap"><table><thead>${head}</thead><tbody>`+
-    (hasRes?row("התוצאות",results.s,{pm:results.pm,to:results.to},"real"):"")+
-    row("ממוצע החבר׳ה",avg,{coal:avgCoal},"avg")+
-    E.sort((a,b)=>a.n.localeCompare(b.n,"he")).map(e=>row(e.n+(e.src==="ext"?" ✉︎":""),e.s,e)).join("")+
-    `</tbody></table></div><p class="hint">✉︎ = ניחוש שהגיע בוואטסאפ.</p>`;
+  html+=`<div class="sec-h"><h2>${B("כל הניחושים","كل التخمينات")}</h2><span class="hint num inl">${B(E.length+" משתתפים",E.length+" مشاركين")}</span></div><div class="tbl-wrap"><table><thead>${head}</thead><tbody>`+
+    (hasRes?row(B("התוצאות","النتائج"),results.s,{pm:results.pm,to:results.to},"real"):"")+
+    row(B("ממוצע החבר׳ה","معدل الشلّة"),avg,{coal:avgCoal},"avg")+
+    E.sort((a,b)=>a.n.localeCompare(b.n,"he")).map(e=>row(esc(e.n)+(e.src==="ext"?" ✉︎":""),e.s,e)).join("")+
+    `</tbody></table></div>`+(E.some(e=>e.src==="ext")?`<p class="hint">✉︎ = ניחוש שהגיע בוואטסאפ</p>`:"");
   el.innerHTML=html;
 }
 
-/* ---------- admin ---------- */
+/* ---------- admin (organizer only, Hebrew) ---------- */
 let resSeats=PARTIES.map(()=>0);
 $("#resSlips").innerHTML=PARTIES.map((p,i)=>slipHTML(p,i,"r",0)).join("");
 bindSteps($("#resSlips"),resSeats,()=>{});
@@ -515,14 +572,14 @@ $("#saveRes").addEventListener("click",async()=>{
 });
 function fillResults(){if(!results)return;if(Array.isArray(results.s))results.s.forEach((v,i)=>{resSeats[i]=v;$("#rs"+i).value=v});$("#rpm").value=results.pm||"";$("#rto").value=results.to??""}
 
-/* ---------- capabilities ---------- */
+/* ---------- capabilities (claude.ai only) ---------- */
 (async()=>{
   if(!window.claude?.use)return;
   [db,user]=await Promise.all([claude.use("db"),claude.use("user")]);
   if(user){isOwner=!!(await user.isOwner());uid=await user.id();try{canWrite=await user.can("data.write")}catch(e){}}
   if(isOwner)$("#adminTabBtn").hidden=false;
   if(!db)return;
-  if(uid){try{const d=await db.doc("guesses/"+uid).get();if(d.exists){fillGuess(d.data());$("#submitMsg").textContent="זה הניחוש ששמרת. אפשר לשנות ולשלוח שוב עד 07:00 ביום הבחירות.";$("#submitMsg").className="msg ok"}}catch(e){}}
+  if(uid){try{const d=await db.doc("guesses/"+uid).get();if(d.exists){fillGuess(d.data());say($("#submitMsg"),"זה הניחוש ששמרת. אפשר לשנות ולשלוח שוב עד 07:00 ביום הבחירות.","هذا التخمين الذي حفظته. يمكن التعديل حتى 07:00 يوم الانتخابات.","msg ok")}}catch(e){}}
   db.collection("guesses").onSnapshot(s=>{guesses=s.docs.map(d=>d.data());if(!$("#tab-board").hidden)renderBoard()},()=>{});
   db.collection("external").onSnapshot(s=>{external=s.docs.map(d=>({...d.data(),_id:d.id}));renderExt();if(!$("#tab-board").hidden)renderBoard()},()=>{});
   db.doc("admin/results").onSnapshot(s=>{results=s.exists?s.data():null;if(isOwner)fillResults();tick();if(!$("#tab-board").hidden)renderBoard()},()=>{});
